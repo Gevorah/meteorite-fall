@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meteorite-falls", "meteorite-falls.csproj", "{A00577B4-B285-4F2F-AE47-C3B6108B02CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A00577B4-B285-4F2F-AE47-C3B6108B02CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A00577B4-B285-4F2F-AE47-C3B6108B02CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A00577B4-B285-4F2F-AE47-C3B6108B02CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A00577B4-B285-4F2F-AE47-C3B6108B02CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B636DEB-3A4F-4935-B356-675B7240747E}
+	EndGlobalSection
+EndGlobal
