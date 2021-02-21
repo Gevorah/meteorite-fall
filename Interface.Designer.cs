@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
+            this.map = new GMap.NET.WindowsForms.GMapControl();
             this.data = new System.Windows.Forms.DataGridView();
             this.attribute = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,32 +44,33 @@
             ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             this.SuspendLayout();
             // 
-            // gMapControl1
+            // map
             // 
-            this.gMapControl1.Bearing = 0F;
-            this.gMapControl1.CanDragMap = true;
-            this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
-            this.gMapControl1.GrayScaleMode = false;
-            this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(466, 192);
-            this.gMapControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.gMapControl1.MarkersEnabled = true;
-            this.gMapControl1.MaxZoom = 2;
-            this.gMapControl1.MinZoom = 2;
-            this.gMapControl1.MouseWheelZoomEnabled = true;
-            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.gMapControl1.Name = "gMapControl1";
-            this.gMapControl1.NegativeMode = false;
-            this.gMapControl1.PolygonsEnabled = true;
-            this.gMapControl1.RetryLoadTile = 0;
-            this.gMapControl1.RoutesEnabled = true;
-            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(296, 217);
-            this.gMapControl1.TabIndex = 0;
-            this.gMapControl1.Zoom = 0D;
+            this.map.Bearing = 0F;
+            this.map.CanDragMap = true;
+            this.map.EmptyTileColor = System.Drawing.Color.Navy;
+            this.map.GrayScaleMode = false;
+            this.map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.map.LevelsKeepInMemmory = 5;
+            this.map.Location = new System.Drawing.Point(466, 192);
+            this.map.Margin = new System.Windows.Forms.Padding(2);
+            this.map.MarkersEnabled = true;
+            this.map.MaxZoom = 20;
+            this.map.MinZoom = 2;
+            this.map.MouseWheelZoomEnabled = true;
+            this.map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.map.Name = "map";
+            this.map.NegativeMode = false;
+            this.map.PolygonsEnabled = true;
+            this.map.RetryLoadTile = 0;
+            this.map.RoutesEnabled = true;
+            this.map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.map.ShowTileGridLines = false;
+            this.map.Size = new System.Drawing.Size(661, 350);
+            this.map.TabIndex = 0;
+            this.map.Zoom = 4D;
+            this.map.Load += new System.EventHandler(this.gMap_Load);
             // 
             // data
             // 
@@ -89,9 +90,7 @@
             "Recclass",
             "Mass",
             "Fall",
-            "Year",
-            "Reclat",
-            "Relong"});
+            "Year"});
             this.attribute.Location = new System.Drawing.Point(132, 94);
             this.attribute.Name = "attribute";
             this.attribute.Size = new System.Drawing.Size(88, 21);
@@ -190,7 +189,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(793, 420);
+            this.ClientSize = new System.Drawing.Size(1148, 553);
             this.Controls.Add(this.lbto);
             this.Controls.Add(this.lbra);
             this.Controls.Add(this.lbst);
@@ -203,7 +202,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.attribute);
             this.Controls.Add(this.data);
-            this.Controls.Add(this.gMapControl1);
+            this.Controls.Add(this.map);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Interface";
             this.Text = "Form1";
@@ -215,7 +214,7 @@
 
         #endregion
 
-        private GMap.NET.WindowsForms.GMapControl gMapControl1;
+        private GMap.NET.WindowsForms.GMapControl map;
         private System.Windows.Forms.DataGridView data;
         private System.Windows.Forms.ComboBox attribute;
         private System.Windows.Forms.Label label1;
