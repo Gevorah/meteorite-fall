@@ -263,7 +263,6 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Interface";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Interface_Load);
             ((System.ComponentModel.ISupportInitialize)(this.data)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barras)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.point)).EndInit();
