@@ -30,17 +30,17 @@
         {
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.data = new System.Windows.Forms.DataGridView();
-            this.categories = new System.Windows.Forms.ComboBox();
+            this.attribute = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.cbcat = new System.Windows.Forms.ComboBox();
+            this.tbst = new System.Windows.Forms.TextBox();
+            this.tbx1 = new System.Windows.Forms.TextBox();
+            this.tbx2 = new System.Windows.Forms.TextBox();
+            this.lbcat = new System.Windows.Forms.Label();
+            this.lbst = new System.Windows.Forms.Label();
+            this.lbra = new System.Windows.Forms.Label();
+            this.lbto = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,10 +79,10 @@
             this.data.Size = new System.Drawing.Size(413, 217);
             this.data.TabIndex = 1;
             // 
-            // categories
+            // attribute
             // 
-            this.categories.FormattingEnabled = true;
-            this.categories.Items.AddRange(new object[] {
+            this.attribute.FormattingEnabled = true;
+            this.attribute.Items.AddRange(new object[] {
             "Name",
             "ID",
             "Name Type",
@@ -91,12 +91,12 @@
             "Fall",
             "Year",
             "Reclat",
-            "Relong",
-            "GeoLocation"});
-            this.categories.Location = new System.Drawing.Point(132, 94);
-            this.categories.Name = "categories";
-            this.categories.Size = new System.Drawing.Size(88, 21);
-            this.categories.TabIndex = 3;
+            "Relong"});
+            this.attribute.Location = new System.Drawing.Point(132, 94);
+            this.attribute.Name = "attribute";
+            this.attribute.Size = new System.Drawing.Size(88, 21);
+            this.attribute.TabIndex = 3;
+            this.attribute.SelectedIndexChanged += new System.EventHandler(this.attribute_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -118,70 +118,72 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "attribute";
             // 
-            // comboBox1
+            // cbcat
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(132, 147);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 6;
+            this.cbcat.FormattingEnabled = true;
+            this.cbcat.Location = new System.Drawing.Point(132, 147);
+            this.cbcat.Name = "cbcat";
+            this.cbcat.Size = new System.Drawing.Size(121, 21);
+            this.cbcat.TabIndex = 6;
+            this.cbcat.SelectedIndexChanged += new System.EventHandler(this.cbcat_SelectedIndexChanged);
             // 
-            // textBox1
+            // tbst
             // 
-            this.textBox1.Location = new System.Drawing.Point(356, 148);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
+            this.tbst.Location = new System.Drawing.Point(356, 148);
+            this.tbst.Name = "tbst";
+            this.tbst.Size = new System.Drawing.Size(100, 20);
+            this.tbst.TabIndex = 7;
+            this.tbst.TextChanged += new System.EventHandler(this.tbst_TextChanged);
             // 
-            // textBox2
+            // tbx1
             // 
-            this.textBox2.Location = new System.Drawing.Point(591, 147);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(42, 20);
-            this.textBox2.TabIndex = 8;
+            this.tbx1.Location = new System.Drawing.Point(591, 152);
+            this.tbx1.Name = "tbx1";
+            this.tbx1.Size = new System.Drawing.Size(42, 20);
+            this.tbx1.TabIndex = 8;
             // 
-            // textBox3
+            // tbx2
             // 
-            this.textBox3.Location = new System.Drawing.Point(675, 148);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(42, 20);
-            this.textBox3.TabIndex = 9;
+            this.tbx2.Location = new System.Drawing.Point(675, 154);
+            this.tbx2.Name = "tbx2";
+            this.tbx2.Size = new System.Drawing.Size(42, 20);
+            this.tbx2.TabIndex = 9;
             // 
-            // label3
+            // lbcat
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(69, 155);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Categories";
+            this.lbcat.AutoSize = true;
+            this.lbcat.Location = new System.Drawing.Point(69, 155);
+            this.lbcat.Name = "lbcat";
+            this.lbcat.Size = new System.Drawing.Size(52, 13);
+            this.lbcat.TabIndex = 11;
+            this.lbcat.Text = "Categorie";
             // 
-            // label4
+            // lbst
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(316, 154);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "String";
+            this.lbst.AutoSize = true;
+            this.lbst.Location = new System.Drawing.Point(316, 154);
+            this.lbst.Name = "lbst";
+            this.lbst.Size = new System.Drawing.Size(34, 13);
+            this.lbst.TabIndex = 12;
+            this.lbst.Text = "String";
             // 
-            // label5
+            // lbra
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(546, 154);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Range";
+            this.lbra.AutoSize = true;
+            this.lbra.Location = new System.Drawing.Point(546, 154);
+            this.lbra.Name = "lbra";
+            this.lbra.Size = new System.Drawing.Size(39, 13);
+            this.lbra.TabIndex = 13;
+            this.lbra.Text = "Range";
             // 
-            // label6
+            // lbto
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(653, 154);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(16, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "to";
+            this.lbto.AutoSize = true;
+            this.lbto.Location = new System.Drawing.Point(653, 154);
+            this.lbto.Name = "lbto";
+            this.lbto.Size = new System.Drawing.Size(16, 13);
+            this.lbto.TabIndex = 14;
+            this.lbto.Text = "to";
             // 
             // Interface
             // 
@@ -189,17 +191,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(793, 420);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.lbto);
+            this.Controls.Add(this.lbra);
+            this.Controls.Add(this.lbst);
+            this.Controls.Add(this.lbcat);
+            this.Controls.Add(this.tbx2);
+            this.Controls.Add(this.tbx1);
+            this.Controls.Add(this.tbst);
+            this.Controls.Add(this.cbcat);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.categories);
+            this.Controls.Add(this.attribute);
             this.Controls.Add(this.data);
             this.Controls.Add(this.gMapControl1);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -215,17 +217,17 @@
 
         private GMap.NET.WindowsForms.GMapControl gMapControl1;
         private System.Windows.Forms.DataGridView data;
-        private System.Windows.Forms.ComboBox categories;
+        private System.Windows.Forms.ComboBox attribute;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cbcat;
+        private System.Windows.Forms.TextBox tbst;
+        private System.Windows.Forms.TextBox tbx1;
+        private System.Windows.Forms.TextBox tbx2;
+        private System.Windows.Forms.Label lbcat;
+        private System.Windows.Forms.Label lbst;
+        private System.Windows.Forms.Label lbra;
+        private System.Windows.Forms.Label lbto;
     }
 }
 

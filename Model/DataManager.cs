@@ -39,7 +39,7 @@ namespace meteorite_falls.Model
 						{
 							for (int k = 0; k < sl.Length-1; k++)
 							{
-								dt.Columns.Add(sl[k]);
+								dt.Columns.Add(sl[k].ToString().Replace('"',' ').Trim());
                                 columns++;
 							}
 							f = false;
@@ -62,7 +62,7 @@ namespace meteorite_falls.Model
             string[] b = new string[columns];
 			for(int i = 0; i < columns; i++)
             {
-				b[i] = a[i];
+				b[i] = a[i].ToString().Replace('"', ' ').Trim();
             }
 			return b;
         }
