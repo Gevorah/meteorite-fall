@@ -17,348 +17,315 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace meteorite_falls
 {
-    public partial class Interface : Form
-    {
-        private DataManager dm;
-        private DataTable dt;
-        private List<PointLatLng> points;
-        private List<PointLatLng> polygs;
-        GMapOverlay markers = new GMapOverlay("markers");
-        GMapOverlay polygons = new GMapOverlay("polygons");
+	public partial class Interface : Form
+	{
+		private DataManager dm;
+		private DataTable dt;
+		private List<PointLatLng> points;
+		private List<PointLatLng> polygs;
+		GMapOverlay markers = new GMapOverlay("markers");
+		GMapOverlay polygons = new GMapOverlay("polygons");
 
-        public Interface()
-        {
-            InitializeComponent();
-            Init();
-        }
+		public Interface()
+		{
+			InitializeComponent();
+			Init();
+		}
 
-        public void Init()
-        {
-            dm = new DataManager();
-            dt = dm.GetDataTable();
-            points = new List<PointLatLng>();
-            polygs = new List<PointLatLng>();
-            data.DataSource = dt;
-            lbcat.Visible = false;
-            cbcat.Visible = false;
-            lbst.Visible = false;
-            tbst.Visible = false;
-            lbto.Visible = false;
-            lbra.Visible = false;
-            tbx1.Visible = false;
-            tbx2.Visible = false;
-            AddPoints();
+		public void Init()
+		{
+			dm = new DataManager();
+			dt = dm.GetDataTable();
+			points = new List<PointLatLng>();
+			polygs = new List<PointLatLng>();
+			data.DataSource = dt;
+			lbcat.Visible = false;
+			cbcat.Visible = false;
+			lbst.Visible = false;
+			tbst.Visible = false;
+			lbto.Visible = false;
+			lbra.Visible = false;
+			tbx1.Visible = false;
+			tbx2.Visible = false;
+			AddPoints("");
+			Graphics();
+		}
+
+		private void gMap_Load(object sender, EventArgs e)
+		{
+			map.MapProvider = GoogleMapProvider.Instance;
+			GMaps.Instance.Mode = AccessMode.ServerOnly;
+			map.Overlays.Add(markers);
+			map.Overlays.Add(polygons);
+		}
+
+		private void setMarkers()
+		{
+			foreach (PointLatLng p in points)
+			{
+				GMapMarker marker = new GMarkerGoogle(p, GMarkerGoogleType.red_dot);
+				markers.Markers.Add(marker);
+			}
+		}
+		private void setPolygons()
+		{
+			GMapPolygon polygon = new GMapPolygon(polygs, "Polygon");
+
+			polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Red));
+			polygon.Stroke = new Pen(Color.Red, 1);
+			polygons.Polygons.Add(polygon);
+		}
+
+		private void AddPoints(string filter)
+		{
+            deletePoints();
+			DataRow[] dr = dt.Select(filter);
+			for (int i = 0; i < dr.Length; i++)
+			{
+				string lat = dr[i]["reclat"].ToString();
+				string lng = dr[i]["reclong"].ToString();
+				if (!lat.Equals("NA") && !lng.Equals("NA"))
+					points.Add(new PointLatLng(Convert.ToDouble(lat), Convert.ToDouble(lng)));
+			}
             setMarkers();
-            Graphics();
-        }
+		}
 
-        private void gMap_Load(object sender, EventArgs e)
-        {
-            map.MapProvider = GoogleMapProvider.Instance;
-            GMaps.Instance.Mode = AccessMode.ServerOnly;
-            map.Overlays.Add(markers);
-            map.Overlays.Add(polygons);
-        }
+		private void deletePoints()
+		{
+			points.Clear();
+			markers.Clear();
+            polygs.Clear();
+		}
 
-        private void setMarkers()
-        {
-            foreach (PointLatLng p in points)
-            {
-                GMapMarker marker = new GMarkerGoogle(p, GMarkerGoogleType.red_dot);
-                markers.Markers.Add(marker);
-            }
-        }
-        private void setPolygons()
-        {
-            GMapPolygon polygon = new GMapPolygon(polygs, "Polygon");
-
-            polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Red));
-            polygon.Stroke = new Pen(Color.Red, 1);
-            polygons.Polygons.Add(polygon);
-        }
-
-        private void AddPoints()
-        {
-            DataRow[] dr = dt.Select();
-            for (int i = 0; i < dr.Length; i++)
-            {
-                string lat = dr[i]["reclat"].ToString();
-                string lng = dr[i]["reclong"].ToString();
-                if (!lat.Equals("NA") && !lng.Equals("NA"))
-                    points.Add(new PointLatLng(Convert.ToDouble(lat), Convert.ToDouble(lng)));
-            }
-        }
-
-        private void attribute_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selected = attribute.Text;
-            if (selected.Equals("Name Type") || selected.Equals("Fall"))
-            {
-                Categories(selected);
-                lbcat.Visible = true;
-                cbcat.Visible = true;
-                lbst.Visible = false;
-                tbst.Visible = false;
-                lbto.Visible = false;
-                lbra.Visible = false;
-                tbx1.Visible = false;
-                tbx2.Visible = false;
-            }
-            else if (selected.Equals("Name") || selected.Equals("ID") || selected.Equals("Recclass"))
-            {
-                lbcat.Visible = false;
-                cbcat.Visible = false;
-                lbst.Visible = true;
-                tbst.Visible = true;
-                lbto.Visible = false;
-                lbra.Visible = false;
-                tbx1.Visible = false;
-                tbx2.Visible = false;
+		private void attribute_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string selected = attribute.Text;
+			if (selected.Equals("Name Type") || selected.Equals("Fall"))
+			{
+				Categories(selected);
+				lbcat.Visible = true;
+				cbcat.Visible = true;
+				lbst.Visible = false;
+				tbst.Visible = false;
+				lbto.Visible = false;
+				lbra.Visible = false;
+				tbx1.Visible = false;
+				tbx2.Visible = false;
+			}
+			else if (selected.Equals("Name") || selected.Equals("ID") || selected.Equals("Recclass"))
+			{
+				lbcat.Visible = false;
+				cbcat.Visible = false;
+				lbst.Visible = true;
+				tbst.Visible = true;
+				lbto.Visible = false;
+				lbra.Visible = false;
+				tbx1.Visible = false;
+				tbx2.Visible = false;
 
 
-            }
-            else if (selected.Equals("Mass") || selected.Equals("Year"))
-            {
-                lbcat.Visible = false;
-                cbcat.Visible = false;
-                lbst.Visible = false;
-                tbst.Visible = false;
-                lbto.Visible = true;
-                lbra.Visible = true;
-                tbx1.Visible = true;
-                tbx2.Visible = true;
-            }
-        }
+			}
+			else if (selected.Equals("Mass") || selected.Equals("Year"))
+			{
+				lbcat.Visible = false;
+				cbcat.Visible = false;
+				lbst.Visible = false;
+				tbst.Visible = false;
+				lbto.Visible = true;
+				lbra.Visible = true;
+				tbx1.Visible = true;
+				tbx2.Visible = true;
+			}
+		}
 
-        private void Categories(string s)
-        {
-            if (s.Equals("Name Type"))
-            {
-                cbcat.Items.Clear();
-                cbcat.Items.Add("Valid");
-                cbcat.Items.Add("Relict");
-            }
-            else if (s.Equals("Fall"))
-            {
-                cbcat.Items.Clear();
-                cbcat.Items.Add("Fell");
-                cbcat.Items.Add("Found");
+		private void Categories(string s)
+		{
+			if (s.Equals("Name Type"))
+			{
+				cbcat.Items.Clear();
+				cbcat.Items.Add("Valid");
+				cbcat.Items.Add("Relict");
+			}
+			else if (s.Equals("Fall"))
+			{
+				cbcat.Items.Clear();
+				cbcat.Items.Add("Fell");
+				cbcat.Items.Add("Found");
 
-            }
+			}
 
-        }
+		}
 
-        private void cbcat_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string s = cbcat.Text;
-            if (s.Equals("Valid"))
-            {
-                dt.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') IN ('{1}')", "nametype", cbcat.Text);
+		private void cbcat_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string s = cbcat.Text;
+			if (s.Equals("Valid"))
+			{
+                string filter = string.Format("Convert([{0}], 'System.String') IN ('{1}')", "nametype", cbcat.Text);
+				dt.DefaultView.RowFilter = filter;
+                AddPoints(filter);
+			}
+			else if (s.Equals("Relict"))
+			{
+                string filter = string.Format("Convert([{0}], 'System.String') IN ('{1}')", "nametype", cbcat.Text);
+				dt.DefaultView.RowFilter = filter;
+                AddPoints(filter);
             }
-            else if (s.Equals("Relict"))
-            {
-                dt.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') IN ('{1}')", "nametype", cbcat.Text);
+			else if (s.Equals("Fell"))
+			{
+                string filter = string.Format("Convert([{0}], 'System.String') IN ('{1}')", "fall", cbcat.Text);
+				dt.DefaultView.RowFilter = filter;
+                AddPoints(filter);
             }
-            else if (s.Equals("Fell"))
-            {
-                dt.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') IN ('{1}')", "fall", cbcat.Text);
+			else if (s.Equals("Found"))
+			{
+                string filter = string.Format("Convert([{0}], 'System.String') IN ('{1}')", "fall", cbcat.Text);
+				dt.DefaultView.RowFilter = filter;
+                AddPoints(filter);
             }
-            else if (s.Equals("Found"))
-            {
-                dt.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') IN ('{1}')", "fall", cbcat.Text);
-            }
-        }
+		}
 
-        private void tbst_TextChanged(object sender, EventArgs e)
-        {
-            string s = attribute.Text;
-            if (s.Equals("Name"))
-            {
-                dt.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') LIKE '%{1}%'", "name", tbst.Text);
+		private void tbst_TextChanged(object sender, EventArgs e)
+		{
+			string s = attribute.Text;
+			if (s.Equals("Name"))
+			{
+                string filter = string.Format("Convert([{0}], 'System.String') LIKE '%{1}%'", "name", tbst.Text);
+				dt.DefaultView.RowFilter = filter;
+                AddPoints(filter);
             }
-            else if (s.Equals("ID"))
-            {
-                dt.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') LIKE '%{1}%'", "id", tbst.Text);
+			else if (s.Equals("ID"))
+			{
+                string filter = string.Format("Convert([{0}], 'System.String') LIKE '%{1}%'", "id", tbst.Text);
+				dt.DefaultView.RowFilter = filter;
+                AddPoints(filter);
             }
-            else if (s.Equals("Recclass"))
-            {
-                dt.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') LIKE '%{1}%'", "recclass", tbst.Text);
+			else if (s.Equals("Recclass"))
+			{
+                string filter = string.Format("Convert([{0}], 'System.String') LIKE '%{1}%'", "recclass", tbst.Text);
+				dt.DefaultView.RowFilter = filter;
+                AddPoints(filter);
             }
 
-        }
+		}
 
 
-        private void tbx1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string s = attribute.Text;
-            try
-            {
-                if (s.Equals("Mass"))
-                {
-                    if (Int32.Parse(tbx1.Text) >= 0)
-                    {
-                        dt.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') > '{1}'", "mass", Int32.Parse(tbx1.Text) - 1);
-                        if (!tbx2.Text.Equals(""))
-                        {
-                            dt.DefaultView.RowFilter = string.Format("Convert([{0}], 'System.String') < '{1}'", "mass", Int32.Parse(tbx2.Text) + 1);
-                        }
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Less");
-                    }
-                }
-                else if (s.Equals("Year"))
-                {
-                    if (Int32.Parse(tbx1.Text) >= 2000)
-                    {
+		private void tbx1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			
+			
+		}
+	
 
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Less");
-                    }
-                }
-
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-        private void RangeFilter()
-        {
-
-        }
-
-        private void tbx2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (Int32.Parse(tbx2.Text) <= 2010)
-                {
-
-                }
-                else
-                {
-                    throw new ArgumentException("More");
-                }
-
-            }
-            catch (IOException)
-            { }
-        }
-
-        private void Interface_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Graphics()
-        {
-
-            PieChart();
-            BarChart();
-            PointsChart();
+		private void tbx2_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			
+		}
 
 
 
-        }
-        private void BarChart() 
-        {
-            barras.Series.Clear();
-            barras.Legends.Clear();
+		private void Graphics()
+		{
+			PieChart();
+			BarChart();
+			PointsChart();
+		}
 
-            //Add a new Legend(if needed) and do some formating
-            barras.Legends.Add("Year");
-            barras.Legends[0].LegendStyle = LegendStyle.Table;
-            barras.Legends[0].Docking = Docking.Bottom;
-            barras.Legends[0].Alignment = StringAlignment.Center;
-            barras.Legends[0].Title = "Year";
-            barras.Legends[0].BorderColor = Color.Black;
+		private void BarChart() 
+		{
+			barras.Series.Clear();
+			barras.Legends.Clear();
 
-            //Add a new chart-series
-            string seriesname = "Year";
-            barras.Series.Add(seriesname);
-            //set the chart-type to "Pie"
-            barras.Series[seriesname].ChartType = SeriesChartType.Bar;
-            barras.Series[seriesname]["BarLabelStyle"] = "Disabled";
+			//Add a new Legend(if needed) and do some formating
+			barras.Legends.Add("Year");
+			barras.Legends[0].LegendStyle = LegendStyle.Table;
+			barras.Legends[0].Docking = Docking.Bottom;
+			barras.Legends[0].Alignment = StringAlignment.Center;
+			barras.Legends[0].Title = "Year";
+			barras.Legends[0].BorderColor = Color.Black;
 
-            //Add some datapoints so the series. in this case you can pass the values to this method
-            barras.Series[seriesname].Points.AddXY("2000", dm.count()[2, 0]);
-            barras.Series[seriesname].Points.AddXY("2001", dm.count()[3, 0]);
-            barras.Series[seriesname].Points.AddXY("2002", dm.count()[4, 0]);
-            barras.Series[seriesname].Points.AddXY("2003", dm.count()[5, 0]);
-            barras.Series[seriesname].Points.AddXY("2004", dm.count()[6, 0]);
-            barras.Series[seriesname].Points.AddXY("2005", dm.count()[7, 0]);
-            barras.Series[seriesname].Points.AddXY("2006", dm.count()[8, 0]);
-            barras.Series[seriesname].Points.AddXY("2007", dm.count()[9, 0]);
-            barras.Series[seriesname].Points.AddXY("2008", dm.count()[10, 0]);
-            barras.Series[seriesname].Points.AddXY("2009", dm.count()[11, 0]);
-            barras.Series[seriesname].Points.AddXY("2010", dm.count()[12, 0]);
-            
-        }
+			//Add a new chart-series
+			string seriesname = "Year";
+			barras.Series.Add(seriesname);
+			//set the chart-type to "Pie"
+			barras.Series[seriesname].ChartType = SeriesChartType.Bar;
+			barras.Series[seriesname]["BarLabelStyle"] = "Disabled";
+
+			//Add some datapoints so the series. in this case you can pass the values to this method
+			barras.Series[seriesname].Points.AddXY("2000", dm.count()[2, 0]);
+			barras.Series[seriesname].Points.AddXY("2001", dm.count()[3, 0]);
+			barras.Series[seriesname].Points.AddXY("2002", dm.count()[4, 0]);
+			barras.Series[seriesname].Points.AddXY("2003", dm.count()[5, 0]);
+			barras.Series[seriesname].Points.AddXY("2004", dm.count()[6, 0]);
+			barras.Series[seriesname].Points.AddXY("2005", dm.count()[7, 0]);
+			barras.Series[seriesname].Points.AddXY("2006", dm.count()[8, 0]);
+			barras.Series[seriesname].Points.AddXY("2007", dm.count()[9, 0]);
+			barras.Series[seriesname].Points.AddXY("2008", dm.count()[10, 0]);
+			barras.Series[seriesname].Points.AddXY("2009", dm.count()[11, 0]);
+			barras.Series[seriesname].Points.AddXY("2010", dm.count()[12, 0]);
+			
+		}
 
 
 
-        private void PieChart()
-        {
-            pie.Series.Clear();
-            pie.Legends.Clear();
+		private void PieChart()
+		{
+			pie.Series.Clear();
+			pie.Legends.Clear();
 
-            //Add a new Legend(if needed) and do some formating
-            pie.Legends.Add("Fall Type");
-            pie.Legends[0].LegendStyle = LegendStyle.Table;
-            pie.Legends[0].Docking = Docking.Bottom;
-            pie.Legends[0].Alignment = StringAlignment.Center;
-            pie.Legends[0].Title = "Fall Type";
-            pie.Legends[0].BorderColor = Color.Black;
+			//Add a new Legend(if needed) and do some formating
+			pie.Legends.Add("Fall Type");
+			pie.Legends[0].LegendStyle = LegendStyle.Table;
+			pie.Legends[0].Docking = Docking.Bottom;
+			pie.Legends[0].Alignment = StringAlignment.Center;
+			pie.Legends[0].Title = "Fall Type";
+			pie.Legends[0].BorderColor = Color.Black;
 
-            //Add a new chart-series
-            string seriesname = "Fall Type";
-            pie.Series.Add(seriesname);
-            //set the chart-type to "Pie"
-            pie.Series[seriesname].ChartType = SeriesChartType.Pie;
-            pie.Series[seriesname]["PieLabelStyle"] = "Disabled";
+			//Add a new chart-series
+			string seriesname = "Fall Type";
+			pie.Series.Add(seriesname);
+			//set the chart-type to "Pie"
+			pie.Series[seriesname].ChartType = SeriesChartType.Pie;
+			pie.Series[seriesname]["PieLabelStyle"] = "Disabled";
 
-            //Add some datapoints so the series. in this case you can pass the values to this method
-            pie.Series[seriesname].Points.AddXY("Fell", dm.count()[0, 0]);
-            pie.Series[seriesname].Points.AddXY("Found", dm.count()[1, 0]);
-        }
+			//Add some datapoints so the series. in this case you can pass the values to this method
+			pie.Series[seriesname].Points.AddXY("Fell", dm.count()[0, 0]);
+			pie.Series[seriesname].Points.AddXY("Found", dm.count()[1, 0]);
+		}
 
-        private void PointsChart()
-        {
-            point.Series.Clear();
-            point.Legends.Clear();
+		private void PointsChart()
+		{
+			point.Series.Clear();
+			point.Legends.Clear();
 
-            //Add a new Legend(if needed) and do some formating
-            point.Legends.Add("Year");
-            point.Legends[0].LegendStyle = LegendStyle.Table;
-            point.Legends[0].Docking = Docking.Bottom;
-            point.Legends[0].Alignment = StringAlignment.Center;
-            point.Legends[0].Title = "Year";
-            point.Legends[0].BorderColor = Color.Black;
+			//Add a new Legend(if needed) and do some formating
+			point.Legends.Add("Year");
+			point.Legends[0].LegendStyle = LegendStyle.Table;
+			point.Legends[0].Docking = Docking.Bottom;
+			point.Legends[0].Alignment = StringAlignment.Center;
+			point.Legends[0].Title = "Year";
+			point.Legends[0].BorderColor = Color.Black;
 
-            //Add a new chart-series
-            string seriesname = "Year";
-            point.Series.Add(seriesname);
-            //set the chart-type to "Pie"
-            point.Series[seriesname].ChartType = SeriesChartType.Point;
-            point.Series[seriesname]["PointLabelStyle"] = "Disabled";
+			//Add a new chart-series
+			string seriesname = "Year";
+			point.Series.Add(seriesname);
+			//set the chart-type to "Pie"
+			point.Series[seriesname].ChartType = SeriesChartType.Point;
+			point.Series[seriesname]["PointLabelStyle"] = "Disabled";
 
-            //Add some datapoints so the series. in this case you can pass the values to this method
-            point.Series[seriesname].Points.AddXY("2000", dm.count()[2, 0]);
-            point.Series[seriesname].Points.AddXY("2001", dm.count()[3, 0]);
-            point.Series[seriesname].Points.AddXY("2002", dm.count()[4, 0]);
-            point.Series[seriesname].Points.AddXY("2003", dm.count()[5, 0]);
-            point.Series[seriesname].Points.AddXY("2004", dm.count()[6, 0]);
-            point.Series[seriesname].Points.AddXY("2005", dm.count()[7, 0]);
-            point.Series[seriesname].Points.AddXY("2006", dm.count()[8, 0]);
-            point.Series[seriesname].Points.AddXY("2007", dm.count()[9, 0]);
-            point.Series[seriesname].Points.AddXY("2008", dm.count()[10, 0]);
-            point.Series[seriesname].Points.AddXY("2009", dm.count()[11, 0]);
-            point.Series[seriesname].Points.AddXY("2010", dm.count()[12, 0]);
+			//Add some datapoints so the series. in this case you can pass the values to this method
+			point.Series[seriesname].Points.AddXY("2000", dm.count()[2, 0]);
+			point.Series[seriesname].Points.AddXY("2001", dm.count()[3, 0]);
+			point.Series[seriesname].Points.AddXY("2002", dm.count()[4, 0]);
+			point.Series[seriesname].Points.AddXY("2003", dm.count()[5, 0]);
+			point.Series[seriesname].Points.AddXY("2004", dm.count()[6, 0]);
+			point.Series[seriesname].Points.AddXY("2005", dm.count()[7, 0]);
+			point.Series[seriesname].Points.AddXY("2006", dm.count()[8, 0]);
+			point.Series[seriesname].Points.AddXY("2007", dm.count()[9, 0]);
+			point.Series[seriesname].Points.AddXY("2008", dm.count()[10, 0]);
+			point.Series[seriesname].Points.AddXY("2009", dm.count()[11, 0]);
+			point.Series[seriesname].Points.AddXY("2010", dm.count()[12, 0]);
 
-        }
-    }
+		}
+	}
 }
