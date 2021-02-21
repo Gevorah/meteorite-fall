@@ -13,6 +13,7 @@ using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using GMap.NET.MapProviders;
 using meteorite_falls.Model;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace meteorite_falls
 {
@@ -48,6 +49,7 @@ namespace meteorite_falls
             tbx2.Visible = false;
             AddPoints();
             setMarkers();
+            Graphics();
         }
 
         private void gMap_Load(object sender, EventArgs e)
@@ -82,8 +84,8 @@ namespace meteorite_falls
             {
                 string lat = dr[i]["reclat"].ToString();
                 string lng = dr[i]["reclong"].ToString();
-                if(!lat.Equals("NA") && !lng.Equals("NA"))
-                points.Add(new PointLatLng(Convert.ToDouble(lat),Convert.ToDouble(lng)));
+                if (!lat.Equals("NA") && !lng.Equals("NA"))
+                    points.Add(new PointLatLng(Convert.ToDouble(lat), Convert.ToDouble(lng)));
             }
         }
 
@@ -249,6 +251,113 @@ namespace meteorite_falls
 
         private void Interface_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void Graphics()
+        {
+
+            PieChart();
+            BarChart();
+            PointsChart();
+
+
+
+        }
+        private void BarChart() 
+        {
+            barras.Series.Clear();
+            barras.Legends.Clear();
+
+            //Add a new Legend(if needed) and do some formating
+            barras.Legends.Add("Year");
+            barras.Legends[0].LegendStyle = LegendStyle.Table;
+            barras.Legends[0].Docking = Docking.Bottom;
+            barras.Legends[0].Alignment = StringAlignment.Center;
+            barras.Legends[0].Title = "Year";
+            barras.Legends[0].BorderColor = Color.Black;
+
+            //Add a new chart-series
+            string seriesname = "Year";
+            barras.Series.Add(seriesname);
+            //set the chart-type to "Pie"
+            barras.Series[seriesname].ChartType = SeriesChartType.Bar;
+            barras.Series[seriesname]["BarLabelStyle"] = "Disabled";
+
+            //Add some datapoints so the series. in this case you can pass the values to this method
+            barras.Series[seriesname].Points.AddXY("2000", dm.count()[2, 0]);
+            barras.Series[seriesname].Points.AddXY("2001", dm.count()[3, 0]);
+            barras.Series[seriesname].Points.AddXY("2002", dm.count()[4, 0]);
+            barras.Series[seriesname].Points.AddXY("2003", dm.count()[5, 0]);
+            barras.Series[seriesname].Points.AddXY("2004", dm.count()[6, 0]);
+            barras.Series[seriesname].Points.AddXY("2005", dm.count()[7, 0]);
+            barras.Series[seriesname].Points.AddXY("2006", dm.count()[8, 0]);
+            barras.Series[seriesname].Points.AddXY("2007", dm.count()[9, 0]);
+            barras.Series[seriesname].Points.AddXY("2008", dm.count()[10, 0]);
+            barras.Series[seriesname].Points.AddXY("2009", dm.count()[11, 0]);
+            barras.Series[seriesname].Points.AddXY("2010", dm.count()[12, 0]);
+            
+        }
+
+
+
+        private void PieChart()
+        {
+            pie.Series.Clear();
+            pie.Legends.Clear();
+
+            //Add a new Legend(if needed) and do some formating
+            pie.Legends.Add("Fall Type");
+            pie.Legends[0].LegendStyle = LegendStyle.Table;
+            pie.Legends[0].Docking = Docking.Bottom;
+            pie.Legends[0].Alignment = StringAlignment.Center;
+            pie.Legends[0].Title = "Fall Type";
+            pie.Legends[0].BorderColor = Color.Black;
+
+            //Add a new chart-series
+            string seriesname = "Fall Type";
+            pie.Series.Add(seriesname);
+            //set the chart-type to "Pie"
+            pie.Series[seriesname].ChartType = SeriesChartType.Pie;
+            pie.Series[seriesname]["PieLabelStyle"] = "Disabled";
+
+            //Add some datapoints so the series. in this case you can pass the values to this method
+            pie.Series[seriesname].Points.AddXY("Fell", dm.count()[0, 0]);
+            pie.Series[seriesname].Points.AddXY("Found", dm.count()[1, 0]);
+        }
+
+        private void PointsChart()
+        {
+            point.Series.Clear();
+            point.Legends.Clear();
+
+            //Add a new Legend(if needed) and do some formating
+            point.Legends.Add("Year");
+            point.Legends[0].LegendStyle = LegendStyle.Table;
+            point.Legends[0].Docking = Docking.Bottom;
+            point.Legends[0].Alignment = StringAlignment.Center;
+            point.Legends[0].Title = "Year";
+            point.Legends[0].BorderColor = Color.Black;
+
+            //Add a new chart-series
+            string seriesname = "Year";
+            point.Series.Add(seriesname);
+            //set the chart-type to "Pie"
+            point.Series[seriesname].ChartType = SeriesChartType.Point;
+            point.Series[seriesname]["PointLabelStyle"] = "Disabled";
+
+            //Add some datapoints so the series. in this case you can pass the values to this method
+            point.Series[seriesname].Points.AddXY("2000", dm.count()[2, 0]);
+            point.Series[seriesname].Points.AddXY("2001", dm.count()[3, 0]);
+            point.Series[seriesname].Points.AddXY("2002", dm.count()[4, 0]);
+            point.Series[seriesname].Points.AddXY("2003", dm.count()[5, 0]);
+            point.Series[seriesname].Points.AddXY("2004", dm.count()[6, 0]);
+            point.Series[seriesname].Points.AddXY("2005", dm.count()[7, 0]);
+            point.Series[seriesname].Points.AddXY("2006", dm.count()[8, 0]);
+            point.Series[seriesname].Points.AddXY("2007", dm.count()[9, 0]);
+            point.Series[seriesname].Points.AddXY("2008", dm.count()[10, 0]);
+            point.Series[seriesname].Points.AddXY("2009", dm.count()[11, 0]);
+            point.Series[seriesname].Points.AddXY("2010", dm.count()[12, 0]);
 
         }
     }
