@@ -1,0 +1,13 @@
+C:\Users\Aspire F 15\Desktop\meteorite-falls\obj\Debug\meteorite-falls.csprojAssemblyReference.cache
+C:\Users\Aspire F 15\Desktop\meteorite-falls\obj\Debug\meteorite_falls.Interface.resources
+C:\Users\Aspire F 15\Desktop\meteorite-falls\obj\Debug\meteorite_falls.Properties.Resources.resources
+C:\Users\Aspire F 15\Desktop\meteorite-falls\obj\Debug\meteorite-falls.csproj.GenerateResource.cache
+C:\Users\Aspire F 15\Desktop\meteorite-falls\obj\Debug\meteorite-falls.csproj.CoreCompileInputs.cache
+C:\Users\Aspire F 15\Desktop\meteorite-falls\bin\Debug\meteorite-falls.exe.config
+C:\Users\Aspire F 15\Desktop\meteorite-falls\bin\Debug\meteorite-falls.exe
+C:\Users\Aspire F 15\Desktop\meteorite-falls\bin\Debug\meteorite-falls.pdb
+C:\Users\Aspire F 15\Desktop\meteorite-falls\bin\Debug\GMap.NET.Core.dll
+C:\Users\Aspire F 15\Desktop\meteorite-falls\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\Aspire F 15\Desktop\meteorite-falls\obj\Debug\meteorite-falls.csproj.CopyComplete
+C:\Users\Aspire F 15\Desktop\meteorite-falls\obj\Debug\meteorite-falls.exe
+C:\Users\Aspire F 15\Desktop\meteorite-falls\obj\Debug\meteorite-falls.pdb
