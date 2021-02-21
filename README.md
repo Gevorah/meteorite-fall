@@ -8,9 +8,12 @@ de los datos Tipo de caida y año de avistamiento o hallazgo
 
 Metodo de la ingenieria: https://docs.google.com/document/d/1WV7YShEsi35qlwaAYI1fqNmF2qtwhwzGXCXiEOqDiRw/edit?usp=sharing 
 Enalace PSP0 
+
 Villa Sebastian:https://github.com/Gevorah/meteorite-falls/blob/main/docs/PSP0%20Villa%20Sebastian.xlsx
+
 Jhon Ijaji:
-Video:
+
+Video:https://youtu.be/qIXJaVF1O-0
 
 Autores:
 Sebastian Villa: sebastianvilla17
