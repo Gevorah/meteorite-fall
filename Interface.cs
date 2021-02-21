@@ -246,5 +246,10 @@ namespace meteorite_falls
             catch (IOException)
             { }
         }
+
+        private void Interface_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace meteorite_falls.Model
 					StreamReader sr = new StreamReader(file);
 					string line;
 					bool f = true;
-                    columns = 0;
+					columns = 0;
 					while ((line = sr.ReadLine()) != null)
 					{
 						string[] sl = line.Split(',');
@@ -40,12 +40,12 @@ namespace meteorite_falls.Model
 							for (int k = 0; k < sl.Length-1; k++)
 							{
 								dt.Columns.Add(sl[k].ToString().Replace('"',' ').Trim());
-                                columns++;
+								columns++;
 							}
 							f = false;
 						}
 						else
-                        { 
+						{ 
 							dt.Rows.Add(Modify(sl));
 						}
 					}
@@ -58,15 +58,76 @@ namespace meteorite_falls.Model
 		}
 
 		public string[] Modify(string[] a)
-        {
-            string[] b = new string[columns];
+		{
+			string[] b = new string[columns];
 			for(int i = 0; i < columns; i++)
-            {
+			{
 				b[i] = a[i].ToString().Replace('"', ' ').Trim();
-            }
+			}
 			return b;
-        }
+		}
+		
+		public int[,] count()
+		{
+            DataRow[] dr = dt.Select();
+			int[,] n = new int[13,1];
+			for(int i = 0; i < dr.Length; i++)
+			{
+                string fall = dr[i]["Fall"].ToString();
+                int year = Int32.Parse(dr[i]["Year"].ToString());
+                if (fall.Equals("fell")) n[0,0]++;
+                else n[1,0]++;
+                switch (year)
+                {
+					case 2000:
+						n[2,0]++;
+						break;
 
+					case 2001:
+                        n[3,0]++;
+						break;
+
+					case 2002:
+						n[4,0]++;
+						break;
+
+					case 2003:
+						n[5,0]++;
+						break;
+
+					case 2004:
+						n[6,0]++;
+						break;
+
+					case 2005:
+						n[7,0]++;
+						break;
+
+					case 2006:
+						n[8,0]++;
+						break;
+
+					case 2007:
+						n[9,0]++;
+						break;
+
+					case 2008:
+						n[10,0]++;
+						break;
+
+					case 2009:
+						n[11,0]++;
+						break;
+
+					case 2010:
+						n[12,0]++;
+						break;
+
+				}
+				
+            }
+			return n;
+		}
 		public DataTable GetDataTable()
 		{
 			return dt;
