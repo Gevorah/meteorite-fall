@@ -11,7 +11,7 @@ Enalace PSP0
 
 Villa Sebastian:https://github.com/Gevorah/meteorite-falls/blob/main/docs/PSP0%20Villa%20Sebastian.xlsx
 
-Jhon Ijaji:
+Jhon Ijaji:no fue posible subir el registro, dado que se presento una falla que involucro perdida de pc
 
 Video:https://youtu.be/qIXJaVF1O-0
 
