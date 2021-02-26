@@ -145,6 +145,7 @@
             this.tbx1.Name = "tbx1";
             this.tbx1.Size = new System.Drawing.Size(42, 20);
             this.tbx1.TabIndex = 8;
+            this.tbx1.TextChanged += new System.EventHandler(this.tbx1_TextChanged);
             // 
             // tbx2
             // 
@@ -152,6 +153,7 @@
             this.tbx2.Name = "tbx2";
             this.tbx2.Size = new System.Drawing.Size(42, 20);
             this.tbx2.TabIndex = 9;
+            this.tbx2.TextChanged += new System.EventHandler(this.tbx2_TextChanged);
             // 
             // lbcat
             // 
