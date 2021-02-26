@@ -213,16 +213,16 @@ namespace meteorite_falls
 		private void tbx1_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string s = attribute.Text;
-			if (s.Equals("year"))
+			if (s.Equals("Year"))
 			{
 				if (tbx2.Text.Equals(""))
 				{
-					string filter = string.Format("Convert([{0}], 'System.String') >= '{1}'", "Year", int.Parse(tbx1.Text)); dt.DefaultView.RowFilter = filter;
+					string filter = string.Format("Convert([{0}], 'System.String') >= '{1}'", "year", int.Parse(tbx1.Text)); dt.DefaultView.RowFilter = filter;
 					AddPoints(filter);
 				}
 				else
 				{
-					string filter = string.Format("Convert([{0}], 'System.String') >= '{1}' AND Convert([{0}], 'System.String') <= '{2}'", "Year", int.Parse(tbx1.Text), int.Parse(tbx2.Text));
+					string filter = string.Format("Convert([{0}], 'System.String') >= '{1}' AND Convert([{0}], 'System.String') <= '{2}'", "year", int.Parse(tbx1.Text), int.Parse(tbx2.Text));
 					dt.DefaultView.RowFilter = filter;
 					AddPoints(filter);
 				}
@@ -234,15 +234,15 @@ namespace meteorite_falls
 		private void tbx2_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string s = attribute.Text;
-			if (s.Equals("year")){
+			if (s.Equals("Year")){
 				if (tbx1.Text.Equals(""))
 				{
-					string filter = string.Format("Convert([{0}], 'System.String') <= '{1}'", "Year", int.Parse(tbx2.Text)); dt.DefaultView.RowFilter = filter;
+					string filter = string.Format("Convert([{0}], 'System.String') <= '{1}'", "year", int.Parse(tbx2.Text)); dt.DefaultView.RowFilter = filter;
 					AddPoints(filter);
 				}
 				else
 				{
-					string filter = string.Format("Convert([{0}], 'System.String') >= '{1}' AND Convert([{0}], 'System.String') <= '{2}'", "Year", int.Parse(tbx1.Text), int.Parse(tbx2.Text));
+					string filter = string.Format("Convert([{0}], 'System.String') >= '{1}' AND Convert([{0}], 'System.String') <= '{2}'", "year", int.Parse(tbx1.Text), int.Parse(tbx2.Text));
 					dt.DefaultView.RowFilter = filter;
 					AddPoints(filter);
 				}
