@@ -210,7 +210,7 @@ namespace meteorite_falls
 		}
 
 
-		private void tbx1_SelectedIndexChanged(object sender, EventArgs e)
+		private void tbx1_TextChanged(object sender, EventArgs e)
 		{
 			string s = attribute.Text;
 			if (s.Equals("Year"))
@@ -231,7 +231,7 @@ namespace meteorite_falls
 		}
 	
 
-		private void tbx2_SelectedIndexChanged(object sender, EventArgs e)
+		private void tbx2_TextChanged(object sender, EventArgs e)
 		{
 			string s = attribute.Text;
 			if (s.Equals("Year")){
