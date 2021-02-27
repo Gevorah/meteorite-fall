@@ -215,7 +215,7 @@ namespace meteorite_falls
 			string s = attribute.Text;
 			if (s.Equals("Year"))
 			{
-				if (tbx2.Text.Equals(""))
+				if (String.IsNullOrEmpty(tbx2.Text.Trim()))
 				{
 					string filter = string.Format("Convert([{0}], 'System.String') >= '{1}'", "year", int.Parse(tbx1.Text)); dt.DefaultView.RowFilter = filter;
 					AddPoints(filter);
@@ -235,7 +235,7 @@ namespace meteorite_falls
 		{
 			string s = attribute.Text;
 			if (s.Equals("Year")){
-				if (tbx1.Text.Equals(""))
+				if (String.IsNullOrEmpty(tbx1.Text.Trim()))
 				{
 					string filter = string.Format("Convert([{0}], 'System.String') <= '{1}'", "year", int.Parse(tbx2.Text)); dt.DefaultView.RowFilter = filter;
 					AddPoints(filter);
